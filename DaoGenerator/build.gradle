@@ -89,6 +89,54 @@ signing {
     }
 }
 
+task uploadLocal(type: Upload) {
+    configuration = configurations.archives
+    uploadDescriptor = true
+    repositories {
+        mavenDeployer {
+            repository(url: 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
+            pom = pom.project {
+                artifactId = 'greendao-generator-layer-test'
+                name 'greenDAO Generator'
+                packaging 'jar'
+                description 'Code generator for greenDAO, the light and fast ORM for Android'
+                url 'http://greendao-orm.com'
+
+                scm {
+                    url 'https://github.com/greenrobot/greenDAO'
+                    connection 'scm:git@github.com:greenrobot/greenDAO.git'
+                    developerConnection 'scm:git@github.com:greenrobot/greenDAO.git'
+                }
+
+                licenses {
+                    license {
+                        name 'GNU General Public License, Version 3'
+                        url 'http://www.gnu.org/licenses/gpl.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'greenrobot'
+                        name 'greenrobot'
+                    }
+                }
+
+                issueManagement {
+                    system 'GitHub Issues'
+                    url 'https://github.com/greenrobot/greenDAO/issues'
+                }
+
+                organization {
+                    name 'greenrobot'
+                    url 'http://greenrobot.de'
+                }
+            }
+        }
+    }
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
